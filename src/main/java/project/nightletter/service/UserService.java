@@ -10,7 +10,6 @@ import project.nightletter.model.User;
 import project.nightletter.repository.UserRepository;
 
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 @Service
 @Slf4j

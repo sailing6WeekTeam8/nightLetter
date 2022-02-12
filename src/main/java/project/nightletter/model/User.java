@@ -24,8 +24,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-   @Column(nullable = false)
-  private String nickname;
+    @Column(nullable = false)
+    private String nickname;
 
     public User(String username, String password, String nickname) {
         this.username=username;

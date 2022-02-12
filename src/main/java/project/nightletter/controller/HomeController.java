@@ -1,22 +1,25 @@
 package project.nightletter.controller;
 
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import project.nightletter.security.UserDetailsImpl;
+import org.springframework.web.bind.annotation.RestController;
+import project.nightletter.dto.MainResponseDto;
+import project.nightletter.service.PostsService;
 
+import java.util.List;
 
-// 홈으로 가는 controller : addAttribute 로 username 을 전달 해주고 있다.
-@Controller
+@RestController
 public class HomeController {
-    // security 가 전달하는 userDetailsImpl 이다.
+
+    private final PostsService postsService;
+
+    @Autowired
+    public HomeController(PostsService postsService) {
+        this.postsService = postsService;
+    }
+
     @GetMapping("/")
-    public String home(Model model, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        model.addAttribute("username", userDetails.getUsername());
-        if (userDetails != null) {
-            model.addAttribute("username", userDetails.getUsername());
-        }
-        return "index";
+    public List<MainResponseDto> letterList() {
+        return postsService.getAllLetter();
     }
 }
