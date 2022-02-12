@@ -155,10 +155,6 @@ button {
     padding-left: 10px;
 }
 
-.add-folder-btn {
-    width: 330px;
-}
-
 .popup button.close {
     position: absolute;
     top: 15px;
@@ -171,14 +167,6 @@ button {
 
 .popup button.cta {
     width: 369.1px;
-    height: 43.9px;
-    border-radius: 2px;
-    background-color: #15aabf;
-    border: none;
-}
-
-.popup button.cta2 {
-    width: 352.1px;
     height: 43.9px;
     border-radius: 2px;
     background-color: #15aabf;
@@ -301,11 +289,10 @@ button {
 }
 
 .pagination {
-    font-size: 14px;
     margin-top: 12px;
     margin-left: auto;
     margin-right: auto;
-    width: 65%;
+    width: 53%;
 }
 
 .folder-active {
@@ -330,7 +317,6 @@ button {
     white-space: normal;
 }
 .folder-bar .folder-bar-item {
-    font-size: 17px;
     padding: 8px 16px;
     float: left;
     width: auto;
@@ -664,14 +650,6 @@ button {
         border: none;
     }
 
-    .popup button.cta2 {
-        width: 302.1px;
-        height: 43.9px;
-        border-radius: 2px;
-        background-color: #15aabf;
-        border: none;
-    }
-
     #search-area, #see-area {
         width: 330px;
         margin: auto;
@@ -706,74 +684,74 @@ button {
     }
 
     /*#product-container {*/
-    /* grid-template-columns: 100px 50px 100px;*/
-    /* grid-template-rows: 80px auto 80px;*/
-    /* column-gap: 10px;*/
-    /* row-gap: 15px;*/
+    /*    grid-template-columns: 100px 50px 100px;*/
+    /*    grid-template-rows: 80px auto 80px;*/
+    /*    column-gap: 10px;*/
+    /*    row-gap: 15px;*/
     /*}*/
 
     /*.product-card {*/
-    /* width: 300px;*/
-    /* margin: auto;*/
-    /* cursor: pointer;*/
+    /*    width: 300px;*/
+    /*    margin: auto;*/
+    /*    cursor: pointer;*/
     /*}*/
 
     /*.product-card .card-header {*/
-    /* width: 300px;*/
+    /*    width: 300px;*/
     /*}*/
 
     /*.product-card .card-header img {*/
-    /* width: 300px;*/
+    /*    width: 300px;*/
     /*}*/
 
     /*.product-card .card-body {*/
-    /* margin-top: 15px;*/
+    /*    margin-top: 15px;*/
     /*}*/
 
     /*.product-card .card-body .title {*/
-    /* font-size: 15px;*/
-    /* font-weight: normal;*/
-    /* font-stretch: normal;*/
-    /* font-style: normal;*/
-    /* line-height: 1;*/
-    /* letter-spacing: -0.75px;*/
-    /* text-align: left;*/
-    /* color: #343a40;*/
-    /* margin-bottom: 10px;*/
-    /* overflow: hidden;*/
-    /* white-space: nowrap;*/
-    /* text-overflow: ellipsis;*/
+    /*    font-size: 15px;*/
+    /*    font-weight: normal;*/
+    /*    font-stretch: normal;*/
+    /*    font-style: normal;*/
+    /*    line-height: 1;*/
+    /*    letter-spacing: -0.75px;*/
+    /*    text-align: left;*/
+    /*    color: #343a40;*/
+    /*    margin-bottom: 10px;*/
+    /*    overflow: hidden;*/
+    /*    white-space: nowrap;*/
+    /*    text-overflow: ellipsis;*/
     /*}*/
 
     /*.product-card .card-body .lprice {*/
-    /* font-size: 15.8px;*/
-    /* font-weight: normal;*/
-    /* font-stretch: normal;*/
-    /* font-style: normal;*/
-    /* line-height: 1;*/
-    /* letter-spacing: -0.79px;*/
-    /* color: #000000;*/
-    /* margin-bottom: 10px;*/
+    /*    font-size: 15.8px;*/
+    /*    font-weight: normal;*/
+    /*    font-stretch: normal;*/
+    /*    font-style: normal;*/
+    /*    line-height: 1;*/
+    /*    letter-spacing: -0.79px;*/
+    /*    color: #000000;*/
+    /*    margin-bottom: 10px;*/
     /*}*/
 
     /*.product-card .card-body .lprice span {*/
-    /* font-size: 21.4px;*/
-    /* font-weight: 600;*/
-    /* font-stretch: normal;*/
-    /* font-style: normal;*/
-    /* line-height: 1;*/
-    /* letter-spacing: -0.43px;*/
-    /* text-align: left;*/
-    /* color: #E8344E;*/
+    /*    font-size: 21.4px;*/
+    /*    font-weight: 600;*/
+    /*    font-stretch: normal;*/
+    /*    font-style: normal;*/
+    /*    line-height: 1;*/
+    /*    letter-spacing: -0.43px;*/
+    /*    text-align: left;*/
+    /*    color: #E8344E;*/
     /*}*/
 
     /*.product-card .card-body .isgood {*/
-    /* margin-top: 10px;*/
-    /* padding: 10px 20px;*/
-    /* color: white;*/
-    /* border-radius: 2.6px;*/
-    /* background-color: #ff8787;*/
-    /* width: 48px;*/
+    /*    margin-top: 10px;*/
+    /*    padding: 10px 20px;*/
+    /*    color: white;*/
+    /*    border-radius: 2.6px;*/
+    /*    background-color: #ff8787;*/
+    /*    width: 48px;*/
     /*}*/
 
     .none {
@@ -787,6 +765,7 @@ button {
         background-color: #e9ecef;
         border: none;
 
+        background-image: url('images/kakao_login_medium_narrow.png');
         background-repeat: no-repeat;
         background-position: right 10px center;
         background-size: 20px 20px;
@@ -798,19 +777,16 @@ button {
     position: relative;
     display: inline-block;
 }
-
 input {
     border: 1px solid transparent;
     background-color: #f1f1f1;
     padding: 10px;
     font-size: 16px;
 }
-
 input[type=text] {
     background-color: #f1f1f1;
     /*width: 100%;*/
 }
-
 input[type=password] {
     background-color: #f1f1f1;
     /*width: 100%;*/

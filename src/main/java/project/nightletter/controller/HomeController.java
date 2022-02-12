@@ -1,9 +1,12 @@
 package project.nightletter.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.nightletter.dto.MainResponseDto;
+import project.nightletter.security.UserDetailsImpl;
 import project.nightletter.service.PostsService;
 
 import java.util.List;
@@ -22,4 +25,5 @@ public class HomeController {
     public List<MainResponseDto> letterList() {
         return postsService.getAllLetter();
     }
+
 }

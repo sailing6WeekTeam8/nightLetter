@@ -36,7 +36,7 @@ public class UserController {
 
     //회원 가입 요청 처리
     @PostMapping("/user/signup")
-    public String registerUser(@RequestBody SignupRequestDto requestDto) {
+    public String registerUser(SignupRequestDto requestDto) {
         userService.registerUser(requestDto);
         return "redirect:/user/login";
     }
