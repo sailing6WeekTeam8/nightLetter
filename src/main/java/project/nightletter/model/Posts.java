@@ -24,7 +24,7 @@ public class Posts {
     @Column(nullable = false)
     private boolean anonymous;
 
-    @JoinColumn(name = "username_id")
+    @JoinColumn(name = "usernameId")
     @ManyToOne
     private User user;
 

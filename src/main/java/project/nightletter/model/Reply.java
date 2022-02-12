@@ -3,12 +3,10 @@ package project.nightletter.model;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import project.nightletter.dto.ReplyRequestDto;
 
 import javax.persistence.*;
 
-@Setter
-@Getter // get 함수를 일괄적으로 만들어줍니다.
-@NoArgsConstructor // 기본 생성자를 만들어줍니다.
 @Entity // DB 테이블 역할을 합니다.
 public class Reply {
 
@@ -24,7 +22,35 @@ public class Reply {
     @Column(nullable = false)
     private boolean anonymous;
 
-    @JoinColumn(name = "Post_id")
+
+    @JoinColumn(name = "UserId")
+    @ManyToOne
+    private User user;
+
+    @JoinColumn(name = "PostId")
     @ManyToOne
     private Posts posts;
+
+
+    public Reply(){
+
+    }
+
+
+    public Reply(ReplyRequestDto replyRequestDto, User user , Posts posts){
+        this.comment = replyRequestDto.getComment();
+        this.anonymous = replyRequestDto.isAnonymous();
+        this.user = user;
+        this.posts = posts;
+    }
+
+    public void update(ReplyRequestDto replyRequestDto) {
+
+        this.comment = replyRequestDto.getComment();
+    }
+
 }
+
+
+
+

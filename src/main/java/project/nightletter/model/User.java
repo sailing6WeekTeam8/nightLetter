@@ -19,11 +19,11 @@ public class User {
 
     // 반드시 값을 가지도록 합니다.
     @Column(nullable = false)
-    private String username;
+    private String username; //아이디
 
     @Column(nullable = false)
-    private String password;
+    private String password; //패스워드
 
     @Column(nullable = false)
-    private String nickname;
+    private String nickname; //닉네임
 }
