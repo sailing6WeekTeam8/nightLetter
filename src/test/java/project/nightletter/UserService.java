@@ -1,7 +1,6 @@
-package project.nightletter.service;
+package project.nightletter;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,14 +9,12 @@ import project.nightletter.model.User;
 import project.nightletter.repository.UserRepository;
 
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 @Service
-@Slf4j
-@RequiredArgsConstructor
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private static final String ADMIN_TOKEN = "AAABnv/xRVklrnYxKZ0aHgTBcXukeZygoC";
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -25,7 +22,8 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(SignupRequestDto requestDto) {
+    @Test
+    public User registerUser(SignupRequestDto requestDto) {
         // 회원 ID 중복 확인
         String username = requestDto.getUsername();
         Optional<User> found = userRepository.findByUsername(username);
@@ -33,15 +31,13 @@ public class UserService {
             throw new IllegalArgumentException("중복된 사용자 ID 가 존재합니다.");
         }
 
-// 패스워드 암호화
+        // 패스워드 암호화
         String password = passwordEncoder.encode(requestDto.getPassword());
         String nickname = requestDto.getNickname();
 
 
-        log.info("username={}",username);
-        log.info("username={}",password);
-        log.info("username={}",nickname);
         User user = new User(username, password, nickname);
         userRepository.save(user);
+        return user;
     }
 }

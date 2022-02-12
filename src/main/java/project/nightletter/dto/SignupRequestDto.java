@@ -1,8 +1,11 @@
 package project.nightletter.dto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class SignupRequestDto {
     private String username;
     private String nickname;

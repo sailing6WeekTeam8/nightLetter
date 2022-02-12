@@ -15,7 +15,9 @@ public class UserDetailsImpl implements UserDetails {
         this.user = user;
     }
 
-    public User getUser() { return user;  }
+    public User getUser() {
+        return user;
+    }
 
     @Override
     public String getPassword() {
@@ -42,6 +44,7 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
+
     @Override
     public boolean isEnabled() {
         return true;
@@ -49,6 +52,9 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override // 인가를 해주는 부분
     public Collection<? extends GrantedAuthority> getAuthorities() {
+
         return Collections.emptyList();
     }
+
+
 }
