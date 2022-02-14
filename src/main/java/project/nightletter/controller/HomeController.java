@@ -20,10 +20,15 @@ public class HomeController {
     public HomeController(PostsService postsService) {
         this.postsService = postsService;
     }
+//승민님 작성
+//    @GetMapping("/")
+//    public List<MainResponseDto> letterList() {
+//        return postsService.getAllLetter();
+//    }
 
+    // security 가 전달하는 userDetailsImpl 이다.
     @GetMapping("/")
-    public List<MainResponseDto> letterList() {
-        return postsService.getAllLetter();
+    public String home() {
+        return "index";
     }
-
 }

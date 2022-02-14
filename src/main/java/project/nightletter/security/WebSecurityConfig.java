@@ -3,16 +3,15 @@ package project.nightletter.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
@@ -20,10 +19,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(securedEnabled = true) // @Secured 어노테이션 활성화
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserDetailsService userDetailsService;
 
-    @Bean   // 비밀번호 암호화
+    @Bean
     public BCryptPasswordEncoder encodePassword() {
         return new BCryptPasswordEncoder();
     }
@@ -36,38 +33,22 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/h2-console/**");
     }
 
+    @Autowired
+    AuthFailureHandler authFailureHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .sessionManagement()
-                        .sessionFixation().migrateSession();
-
-
-
-        http
-                .authorizeRequests()
-                        .antMatchers("/**").permitAll()
-                        .and()
-                                .cors()
-                ;
-
-
-        http.csrf().disable();
 
         http.headers().frameOptions().disable();
-
+        http.csrf().disable();
         http.authorizeRequests()
-
+                // 회원 관리 처리 API 전부를 login 없이 허용
                 // image 폴더를 login 없이 허용
                 .antMatchers("/images/**").permitAll()
                 // css 폴더를 login 없이 허용
                 .antMatchers("/css/**").permitAll()
-                // 회원관리 처리 API 전부 login 없이 허용
                 .antMatchers("/user/**").permitAll()
-                //h2-console 허용
                 .antMatchers("/h2-console/**").permitAll()
-
                 // 메인페이지 접근허용
                 .antMatchers("/index/**").permitAll()
                 // 글 조회 접근허용
@@ -78,44 +59,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
                 // 전부 허용
                 .antMatchers("*").permitAll()
-
-                // 그 외 모든 요청은 인증과정 필요
-                .anyRequest().authenticated()
+                .antMatchers("/**").permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
+                .anyRequest().permitAll()
+                .and().cors()
                 .and()
-                //로그인 기능
+                // 로그인 기능 허용
                 .formLogin()
-                //로그인 view 제공 (/GET /user/login)
+//                .usernameParameter("email")
                 .loginPage("/user/login")
-                //로그인 처리 후 실패 시 URL
+                .loginProcessingUrl("/user/login")
+//                .defaultSuccessUrl("/success")
                 .failureUrl("/user/login/error")
-                //로그인 처리 후 성공시 (URL)
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/api/mains")
+                .failureHandler(authFailureHandler)
                 .permitAll()
                 .and()
-                //로그아웃 기능
+                // 로그아웃 기능 허용
                 .logout()
-                .logoutUrl("/user/logout")
-                .logoutSuccessUrl("/")
-                .permitAll();
+                .logoutUrl("/logout")
+                .permitAll()
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/");
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.addAllowedOriginPattern("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
+    public CorsConfigurationSource configurationSource(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", corsConfiguration);
         return source;
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
     }
 }
